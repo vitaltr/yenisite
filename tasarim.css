@@ -49,6 +49,7 @@ body{
     grid-row-start: 3;
     grid-row-end: 4;
     border: 2px solid #000;
+    background-color: #545482;
 }
 .alt{
     height: 100px;
