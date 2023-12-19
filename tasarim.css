@@ -1,63 +1,103 @@
-/*www.bilisimogretmeni.com Div Uygulaması*/
-body {
-    font-family:'Century Gothic'; 
-    color:white;
+body{
+    margin:0;
 }
-#genel
-{
-     width:960px; 
-     margin:0 auto; 
-     padding:10px;
-     background-color:aqua;
+.sayfa{
+    display: grid;
+    grid-template-columns: 350px 720px;
+    grid-gap: 10px;
+    width: 1080px;
+    margin:auto;
+    
 }
-#header {
-    width:940px;
-    background-color:azure;
-    height:100px;
-    padding:10px;
+.ust{
+    height: 200px;
+    grid-column-start:1;
+    grid-column-end:3;
+    /* grid-column:start/end  şeklinde de kullanılabilir.*/ 
+    grid-row-start: 1;
+    grid-row-end: 2;
+    border:10px solid #000;  
 }
-#banner {
-    padding:20px 0 0 20px;
-    height:80px;
-    width:350px;
-    background-color:brown;   
+
+.menu{
+    height: 50px;
+    grid-column-start:1;
+    grid-column-end:3;
+    /* grid-column:start/end  şeklinde de kullanılabilir.*/
+    
+    grid-row-start: 2;
+    grid-row-end: 3;
+    border:10px solid #000;
 }
-#menu {
-    height:40px;
-    width:930px;
-    background-color:brown;
-    margin:10px 0;
-    padding:10px 0 0 30px;
+
+.sol{
+    min-height: 300px;/*sonra kaldırılacak*/
+    grid-column-start:1;
+    grid-column-end:2;
+    /* grid-column:start/end  şeklinde de kullanılabilir.*/
+    
+    grid-row-start: 3;
+    grid-row-end: 4;
+    border:10px solid #000; 
 }
-#orta {
-     width:940px; 
-     height:430px;
-     margin:0 auto; 
-     padding:10px;
-     background-color:azure;
+
+.sag{
+    min-height: 300px;/*sonra kaldırılacak*/
+    grid-column-start:2;
+    grid-column-end:3;
+    /* grid-column:start/end  şeklinde de kullanılabilir.*/
+    
+    grid-row-start: 3;
+    grid-row-end: 4;
+    border:10px solid #000; 
 }
-#ortasol {
-    height:430px;
-    width:330px;
-    background-color:brown;   
+.alt{
+    height: 100px;
+     grid-column-start:1;
+    grid-column-end:3;
+    /* grid-column:start/end  şeklinde de kullanılabilir.*/
+    
+    grid-row-start: 4;
+    grid-row-end: 5;
+    border:10px solid #000; 
+}
+
+/*alt bölümlerin tasarımını eski teknikleri kullanrak da yapabiliriz artık.*/
+.menu ul{
+    margin:0;
+    padding:0;
+    list-style: none;
+}
+.menu ul li{
     float:left;
-    padding-left:20px;
 }
-#ortasag {
-    height:430px;
-    width:560px;
-    background-color:brown;   
+.menu ul li a{
+    height: 50px;
+    line-height: 50px;
+    background: #cecece;
+    color:#fff;
+    display: block;
+    width: 150px;
+    margin:0 5px 0 0;
+    text-align: center;
+}
+.sol .kutu{
+   width: 300px;
+    height: 200px;
+    margin:10px;
+    border:5px solid red;
+    box-sizing: padding-box;
+}
+
+.sag h2,.sag p,.sag .kutu{
+    margin:10px;
+    font-size: 150%;
+    text-align: justify; 
+}
+
+.sag .kutu{
     float:left;
-    margin:0 0 0 10px;
-    padding-left:20px;
-}
-#temizle {
-    clear:both;
-}
-#alt {
-    height:50px;
-    width:960px;
-    background-color:brown;
-    margin:10px 0;
-    text-align:center;
+    width: 320px;
+    height: 200px;
+    border:5px solid red;
 }
