@@ -9,25 +9,18 @@ body{
     margin:auto;
     
 }
-.ust{
-    height: 200px;
-    grid-column-start:1;
-    grid-column-end:3;
-    /* grid-column:start/end  şeklinde de kullanılabilir.*/ 
-    grid-row-start: 1;
-    grid-row-end: 2;
-    border:10px solid #000;  
-}
 
 .menu{
-    height: 50px;
+    position: fixed;
+    background-color: black;
+    height: 30px;
     grid-column-start:1;
     grid-column-end:3;
     /* grid-column:start/end  şeklinde de kullanılabilir.*/
     
     grid-row-start: 2;
     grid-row-end: 3;
-    border:10px solid #000;
+    border:2px solid #000;
 }
 
 .sol{
@@ -46,10 +39,10 @@ body{
     grid-column-start:2;
     grid-column-end:3;
     /* grid-column:start/end  şeklinde de kullanılabilir.*/
+    
     grid-row-start: 3;
     grid-row-end: 4;
-    border: 2px solid #000;
-    background-color: #545482;
+    border:10px solid #000; 
 }
 .alt{
     height: 100px;
@@ -72,8 +65,8 @@ body{
     float:left;
 }
 .menu ul li a{
-    height: 50px;
-    line-height: 50px;
+    height: 30px;
+    line-height: 30px;
     background: #cecece;
     color:#fff;
     display: block;
