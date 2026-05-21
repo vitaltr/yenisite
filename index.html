@@ -1,32 +1,199 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Grid Örnek</title>
-        <link href="tasarim.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="sayfa">
-            <div class="menu">
-                <ul>
-                    <li><a href="#">Sayfa</a></li>
-                    <li><a href="#">Sayfa</a></li>
-                    <li><a href="#">Sayfa</a></li>
-                    <li><a href="#">Sayfa</a></li>
-                </ul>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mühendislik ve PCB Serisi Ürün Sayfası</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background: #f5f5f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        
+        /* Ana Kart Tasarımı */
+        .product-card { background: white; display: flex; max-width: 820px; width: 100%; border-radius: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.04); overflow: hidden; }
+        
+        /* Sol: Görsel Alanı */
+        .image-section { flex: 1.1; background: #fafafa; display: flex; align-items: center; justify-content: center; padding: 30px; border-right: 1px solid #f0f0f2; }
+        .image-section img { max-width: 100%; height: auto; object-fit: contain; border-radius: 12px; transition: transform 0.3s ease; }
+        
+        /* Sağ: Seçenekler ve Detaylar */
+        .info-section { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: space-between; }
+        h1 { font-size: 24px; color: #1d1d1f; font-weight: 600; margin-bottom: 6px; }
+        .price { font-size: 22px; color: #1d1d1f; font-weight: 500; margin-bottom: 25px; border-bottom: 1px solid #f0f0f2; padding-bottom: 15px; }
+        
+        .option-title { font-size: 11px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+        .group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        
+        /* Şık Minimalist Butonlar */
+        .btn { padding: 10px 18px; border: 1px solid #d2d2d7; background: white; border-radius: 10px; font-size: 14px; font-weight: 500; color: #1d1d1f; cursor: pointer; transition: all 0.15s ease; }
+        .btn:hover:not(:disabled) { border-color: #0071e3; color: #0071e3; }
+        .btn.active { border-color: #0071e3; background: #0071e3; color: white; }
+        .btn:disabled { background: #f5f5f7; color: #b4b4b8; border-color: #e5e5ea; cursor: not-allowed; text-decoration: line-through; }
+
+        /* Özet Alanı */
+        .summary-box { background: #f5f5f7; padding: 15px; border-radius: 12px; font-size: 13px; color: #515154; line-height: 1.6; margin: 15px 0; border: 1px solid #e5e5ea; }
+        .summary-box strong { color: #1d1d1f; }
+
+        /* Sipariş Tamamlama Butonu */
+        .action-btn { width: 100%; padding: 14px; background: #0071e3; color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+        .action-btn:hover:not(:disabled) { background: #0077ed; }
+        .action-btn:disabled { background: #e5e5ea; color: #86868b; cursor: not-allowed; }
+
+        /* Mobil Uyum */
+        @media (max-width: 768px) {
+            .product-card { flex-direction: column; }
+            .image-section { border-right: none; border-bottom: 1px solid #f0f0f2; min-height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="product-card">
+    <!-- SOL: DİNAMİK RESİM -->
+    <div class="image-section">
+        <img id="main-img" src="https://unsplash.com" alt="Ürün">
+    </div>
+
+    <!-- SAĞ: SEÇENEKLER -->
+    <div class="info-section">
+        <div>
+            <h1>Mühendislik & Kod Serisi</h1>
+            <div class="price" id="display-price">Seçim Yapınız</div>
+
+            <!-- 1. SEÇENEK: RENK -->
+            <div class="option-title">1. Renk Seçimi</div>
+            <div class="group" id="color-group"></div>
+
+            <!-- 2. SEÇENEK: BEDEN / BOYUT -->
+            <div class="option-title">2. Beden Seçimi</div>
+            <div class="group" id="size-group">
+                <span style="font-size: 13px; color:#86868b;">Lütfen önce bir renk belirleyin.</span>
             </div>
-            <div class="sol">
-                <div class="kutu"></div>
-                <div class="kutu"></div>
-                <div class="kutu"></div>
+
+            <!-- 3. SEÇENEK: ÜST DEĞİŞİKLİKLERİ -->
+            <div class="option-title">3. Üstündeki Değişiklikler</div>
+            <div class="group" id="extra-group">
+                <button class="btn active" data-extra="Standart Baskısız" data-price="0" onclick="selectExtra(this)">Standart (+0 TL)</button>
+                <button class="btn" data-extra="Özel İsim Yazılı" data-price="60" onclick="selectExtra(this)">İsim Ekle (+60 TL)</button>
+                <button class="btn" data-extra="Özel Logolu" data-price="100" onclick="selectExtra(this)">Logo Ekle (+100 TL)</button>
             </div>
-            <div class="sag">
-                <h2>Lorem ipsum dolor sit amet</h2>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
-                <div class="kutu"></div>
-                <div class="kutu"></div>
-            </div>
-            <div class="alt"></div>
         </div>
-    </body>
+
+        <!-- ÖZET VE EYLEM BUTONU -->
+        <div>
+            <div class="summary-box" id="summary-box">Lütfen yukarıdan ürün seçeneklerini belirleyin.</div>
+            <button class="action-btn" id="action-btn" disabled onclick="completeOrder()">Siparişi Tamamla</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// DÜZENLEYECEĞİNİZ DEĞİŞKENLER VE VERİ TABANI
+const productData = {
+    "Siyah": {
+        img: "https://unsplash.com", // Siyah ürün görsel linki
+        sizes: { "S": 300, "M": 310, "L": 320 } // Bedenler ve baz fiyatları
+    },
+    "Beyaz": {
+        img: "https://unsplash.com", // Beyaz ürün görsel linki
+        sizes: { "M": 280, "L": 290, "XL": 300 }
+    },
+    "Mavi": {
+        img: "https://unsplash.com", // Mavi ürün görsel linki
+        sizes: { "M": 330, "XL": 350 }
+    }
+};
+
+let selectedColor = null;
+let selectedSize = null;
+let selectedExtraText = "Standart Baskısız";
+let selectedExtraPrice = 0;
+
+// Renk butonlarını otomatik olarak oluşturur
+function init() {
+    const colorGroup = document.getElementById("color-group");
+    for (let color in productData) {
+        let btn = document.createElement("button");
+        btn.className = "btn";
+        btn.innerText = color;
+        btn.onclick = () => chooseColor(color, btn);
+        colorGroup.appendChild(btn);
+    }
+}
+
+// Renk butonuna tıklanınca çalışan fonksiyon
+function chooseColor(color, element) {
+    selectedColor = color;
+    selectedSize = null; // Renk değişince seçili bedeni sıfırla
+    
+    document.querySelectorAll("#color-group .btn").forEach(b => b.classList.remove("active"));
+    element.classList.add("active");
+    document.getElementById("main-img").src = productData[color].img;
+
+    // Beden butonlarını dinamik olarak oluşturma
+    const sizeGroup = document.getElementById("size-group");
+    sizeGroup.innerHTML = "";
+    
+    const sizes = productData[color].sizes;
+    for (let size in sizes) {
+        let btn = document.createElement("button");
+        btn.className = "btn";
+        btn.innerText = size;
+        btn.onclick = () => chooseSize(size, btn);
+        sizeGroup.appendChild(btn);
+    }
+    updateUI();
+}
+
+// Beden butonuna tıklanınca çalışan fonksiyon
+function chooseSize(size, element) {
+    selectedSize = size;
+    document.querySelectorAll("#size-group .btn").forEach(b => b.classList.remove("active"));
+    element.classList.add("active");
+    updateUI();
+}
+
+// 3. aşamadaki ek değişiklik butonlarına tıklanınca çalışan fonksiyon
+function selectExtra(element) {
+    document.querySelectorAll("#extra-group .btn").forEach(b => b.classList.remove("active"));
+    element.classList.add("active");
+    selectedExtraText = element.getAttribute("data-extra");
+    selectedExtraPrice = parseFloat(element.getAttribute("data-price"));
+    updateUI();
+}
+
+// Fiyatı ve özet kutusunu güncelleyen ana fonksiyon
+function updateUI() {
+    const priceDisplay = document.getElementById("display-price");
+    const summaryBox = document.getElementById("summary-box");
+    const actionBtn = document.getElementById("action-btn");
+
+    if (!selectedColor || !selectedSize) {
+        priceDisplay.innerText = selectedColor ? "Beden Seçiniz" : "Seçim Yapınız";
+        summaryBox.innerText = "Lütfen yukarıdan ürün seçeneklerini belirleyin.";
+        actionBtn.disabled = true;
+        return;
+    }
+
+    const basePrice = productData[selectedColor].sizes[selectedSize];
+    const finalPrice = basePrice + selectedExtraPrice;
+
+    // Fiyat göstergesini güncelle
+    priceDisplay.innerText = finalPrice.toFixed(2) + " TL";
+
+    // Özet alanını güncelle
+    summaryBox.innerHTML = `Seçilen: <strong>${selectedColor}</strong> Renk, Beden: <strong>${selectedSize}</strong>, Değişiklik: <strong>${selectedExtraText}</strong>`;
+    actionBtn.disabled = false;
+}
+
+// Siparişi tamamlama butonuna basıldığında ne olacağı (Örnek uyarı penceresi)
+function completeOrder() {
+    const basePrice = productData[selectedColor].sizes[selectedSize];
+    const finalPrice = basePrice + selectedExtraPrice;
+    alert(`Sipariş Bilgisi:\n\nRenk: ${selectedColor}\nBeden: ${selectedSize}\nEkstra: ${selectedExtraText}\nToplam Tutar: ${finalPrice.toFixed(2)} TL\n\nGitHub Pages sunucusuz olduğu için sipariş buraya kadardır!`);
+}
+
+// Uygulamayı başlat
+init();
+</script>
+</body>
 </html>
