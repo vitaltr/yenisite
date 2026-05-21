@@ -3,82 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ürün Sayfası</title>
+    <title>PrestaShop Stil Ürün Sayfası</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background: #f5f5f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        body { background: #f1f1f1; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
         
-        /* Eski Grid yapısının modern hali */
-        .container { background: white; display: grid; grid-template-columns: 1fr 1fr; max-width: 750px; width: 100%; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; }
+        /* PrestaShop Blok Düzeni */
+        .product-container { background: white; display: grid; grid-template-columns: 45% 55%; max-width: 900px; width: 100%; border: 1px solid #e5e5e5; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); background: #fff; }
         
-        /* Sol Bölüm */
-        .left-side { background: #fafafa; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .left-side img { max-width: 90%; height: auto; border-radius: 8px; }
+        /* Sol Resim Alanı */
+        .images-container { padding: 30px; display: flex; align-items: center; justify-content: center; background: #fff; border-right: 1px solid #f1f1f1; }
+        .images-container img { max-width: 100%; height: auto; border: 1px solid #f1f1f1; padding: 10px; background: #fff; }
         
-        /* Sağ Bölüm */
-        .right-side { padding: 30px; display: flex; flex-direction: column; justify-content: center; }
-        h1 { font-size: 22px; color: #1d1d1f; margin-bottom: 5px; }
-        .price { font-size: 20px; font-weight: bold; color: #222; margin-bottom: 20px; }
+        /* Sağ Detay Alanı */
+        .product-info { padding: 40px; color: #333; }
         
-        .title { font-size: 12px; font-weight: bold; color: #86868b; text-transform: uppercase; margin-bottom: 8px; margin-top: 15px; }
-        .btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
+        /* Ürün Başlık ve Fiyat */
+        h1 { font-size: 26px; font-weight: 600; color: #232323; margin-bottom: 10px; }
+        .reference { font-size: 12px; color: #7a7a7a; margin-bottom: 15px; }
+        .price-block { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #f1f1f1; }
+        .current-price { font-size: 28px; font-weight: bold; color: #232323; }
         
-        /* Basit ve şık butonlar */
-        .btn { padding: 8px 14px; border: 1px solid #d2d2d7; background: white; border-radius: 8px; font-size: 13px; cursor: pointer; transition: 0.15s; }
-        .btn:hover { border-color: #0071e3; color: #0071e3; }
-        .btn.active { border-color: #0071e3; background: #0071e3; color: white; }
+        /* Stok Bilgisi */
+        .availability { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: bold; color: #4cbb6c; margin-bottom: 20px; }
+        .availability-icon { width: 8px; height: 8px; background: #4cbb6c; border-radius: 50%; }
 
-        /* Özet Kutusu */
-        .info-box { background: #f5f5f7; padding: 12px; border-radius: 8px; font-size: 13px; color: #515154; margin-top: 20px; border: 1px solid #e5e5ea; }
+        /* PrestaShop Satır Seçenekleri */
+        .product-variants { margin-bottom: 25px; }
+        .variant-line { display: flex; align-items: center; margin-bottom: 15px; }
+        .variant-label { width: 100px; font-size: 14px; font-weight: bold; color: #414141; }
+        .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+        
+        /* PrestaShop Butonları */
+        .ps-btn { padding: 6px 14px; border: 1px solid #ccc; background: #fff; font-size: 13px; color: #333; cursor: pointer; transition: all 0.2s; border-radius: 3px; }
+        .ps-btn:hover { border-color: #232323; background: #f6f6f6; }
+        .ps-btn.active { border-color: #24b9d7; background: #24b9d7; color: #fff; font-weight: bold; }
+
+        /* Adet ve Sepet Kısmı */
+        .add-to-cart-row { display: flex; gap: 15px; align-items: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #f1f1f1; }
+        .qty-input { width: 60px; padding: 10px; border: 1px solid #ccc; text-align: center; font-size: 15px; border-radius: 3px; }
+        
+        /* Klasik PrestaShop Pembemsi/Kırmızımsı Sepet Butonu */
+        .ps-add-btn { flex: 1; padding: 12px 24px; background: #24b9d7; color: white; border: none; border-radius: 3px; font-size: 15px; font-weight: bold; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s; }
+        .ps-add-btn:hover { background: #1da1bc; }
+
+        /* Alt Özet Bilgisi */
+        .ps-summary { background: #f8f9fa; border: 1px solid #ededed; padding: 12px; font-size: 13px; margin-top: 20px; color: #666; border-radius: 3px; }
+
+        @media (max-width: 768px) {
+            .product-container { grid-template-columns: 1fr; }
+            .images-container { border-right: none; border-bottom: 1px solid #f1f1f1; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- SOL: RESİM -->
-    <div class="left-side">
-        <img id="product-img" src="https://unsplash.com" alt="Ürün">
+<div class="product-container">
+    <!-- SOL: PRESTASHOP ÜRÜN GÖRSELİ -->
+    <div class="images-container">
+        <img id="product-img" src="https://unsplash.com" alt="Ürün Resmi">
     </div>
 
-    <!-- SAĞ: İÇERİK -->
-    <div class="right-side">
-        <h1>Mühendislik Serisi</h1>
-        <div class="price" id="total-price">300.00 TL</div>
-
-        <!-- 1. SEÇENEK -->
-        <div class="title">1. Renk</div>
-        <div class="btn-group">
-            <button class="btn active" onclick="changeColor('Siyah', 'https://unsplash.com', this)">Siyah</button>
-            <button class="btn" onclick="changeColor('Beyaz', 'https://unsplash.com', this)">Beyaz</button>
+    <!-- SAĞ: PRESTASHOP SEÇENEKLER BLOĞU -->
+    <div class="product-info">
+        <h1>Mühendislik Baskılı Tişört</h1>
+        <div class="reference">Referans: PC-00125-M</div>
+        
+        <div class="price-block">
+            <span class="current-price" id="total-price">300.00 TL</span>
         </div>
 
-        <!-- 2. SEÇENEK -->
-        <div class="title">2. Beden</div>
-        <div class="btn-group">
-            <button class="btn active" onclick="changeSize('S', 0, this)">S</button>
-            <button class="btn" onclick="changeSize('M', 10, this)">M (+10 TL)</button>
-            <button class="btn" onclick="changeSize('L', 20, this)">L (+20 TL)</button>
+        <div class="availability">
+            <span class="availability-icon"></span>
+            <span>Stokta Var</span>
         </div>
 
-        <!-- 3. SEÇENEK -->
-        <div class="title">3. Özellik</div>
-        <div class="btn-group">
-            <button class="btn active" onclick="changeExtra('Baskısız', 0, this)">Standart</button>
-            <button class="btn" onclick="changeExtra('İsimli', 50, this)">İsim Ekle (+50 TL)</button>
+        <!-- VARYANTLAR (ÖZELLİKLER) -->
+        <div class="product-variants">
+            <!-- 1. Renk Satırı -->
+            <div class="variant-line">
+                <span class="variant-label">Renk</span>
+                <div class="btn-group">
+                    <button class="ps-btn active" onclick="changeColor('Siyah', 'https://unsplash.com', this)">Siyah</button>
+                    <button class="ps-btn" onclick="changeColor('Beyaz', 'https://unsplash.com', this)">Beyaz</button>
+                </div>
+            </div>
+
+            <!-- 2. Beden Satırı -->
+            <div class="variant-line">
+                <span class="variant-label">Beden</span>
+                <div class="btn-group">
+                    <button class="ps-btn active" onclick="changeSize('S', 0, this)">S</button>
+                    <button class="ps-btn" onclick="changeSize('M', 15, this)">M (+15 TL)</button>
+                    <button class="ps-btn" onclick="changeSize('L', 30, this)">L (+30 TL)</button>
+                </div>
+            </div>
+
+            <!-- 3. Ekstra Özellik Satırı -->
+            <div class="variant-line">
+                <span class="variant-label">Baskı Türü</span>
+                <div class="btn-group">
+                    <button class="ps-btn active" onclick="changeExtra('Standart Baskısız', 0, this)">Standart</button>
+                    <button class="ps-btn" onclick="changeExtra('Özel İsimli', 60, this)">İsim Ekle (+60 TL)</button>
+                </div>
+            </div>
         </div>
 
-        <!-- ÖZET ALANI -->
-        <div class="info-box" id="summary">
-            Seçim: Siyah / Beden: S / Standart
+        <!-- ADET VE SEPETE EKLE SATIRI -->
+        <div class="add-to-cart-row">
+            <input type="number" class="qty-input" value="1" min="1" id="product-qty" onchange="updateSummary()">
+            <button class="ps-add-btn" onclick="triggerOrder()">
+                <span>Sepete Ekle</span>
+            </button>
+        </div>
+
+        <!-- ÖZET BLOK -->
+        <div class="ps-summary" id="summary-box">
+            Seçilen Paket: Siyah - S beden - Standart Baskısız (Adet: 1)
         </div>
     </div>
 </div>
 
 <script>
-// Seçimlerin durumunu tutan basit değişkenler
+// Seçim durum değişkenleri
 let currentColor = "Siyah";
 let currentSize = "S";
-let currentExtra = "Baskısız";
+let currentExtra = "Standart Baskısız";
 
 let basePrice = 300;
 let sizePrice = 0;
@@ -88,8 +138,7 @@ function changeColor(color, imgUrl, element) {
     currentColor = color;
     document.getElementById("product-img").src = imgUrl;
     
-    // Buton aktiflik sınıflarını ayarla
-    let buttons = element.parentElement.getElementsByClassName("btn");
+    let buttons = element.parentElement.getElementsByClassName("ps-btn");
     for(let b of buttons) b.classList.remove("active");
     element.classList.add("active");
     
@@ -100,7 +149,7 @@ function changeSize(size, additionalPrice, element) {
     currentSize = size;
     sizePrice = additionalPrice;
     
-    let buttons = element.parentElement.getElementsByClassName("btn");
+    let buttons = element.parentElement.getElementsByClassName("ps-btn");
     for(let b of buttons) b.classList.remove("active");
     element.classList.add("active");
     
@@ -111,7 +160,7 @@ function changeExtra(extra, additionalPrice, element) {
     currentExtra = extra;
     extraPrice = additionalPrice;
     
-    let buttons = element.parentElement.getElementsByClassName("btn");
+    let buttons = element.parentElement.getElementsByClassName("ps-btn");
     for(let b of buttons) b.classList.remove("active");
     element.classList.add("active");
     
@@ -119,12 +168,25 @@ function changeExtra(extra, additionalPrice, element) {
 }
 
 function updateSummary() {
-    // Toplam fiyatı hesapla ve ekrana yaz
-    let total = basePrice + sizePrice + extraPrice;
-    document.getElementById("total-price").innerText = total.toFixed(2) + " TL";
+    let qty = parseInt(document.getElementById("product-qty").value) || 1;
+    if(qty < 1) qty = 1;
+
+    // Toplam fiyat hesaplama (Seçenekler + Adet çarpımı)
+    let singlePrice = basePrice + sizePrice + extraPrice;
+    let finalTotal = singlePrice * qty;
     
-    // Alt kutudaki özet yazısını güncelle
-    document.getElementById("summary").innerText = `Seçim: ${currentColor} / Beden: ${currentSize} / ${currentExtra}`;
+    document.getElementById("total-price").innerText = finalTotal.toFixed(2) + " TL";
+    
+    // Alt bilgi metni güncelleme
+    document.getElementById("summary-box").innerText = `Seçilen Paket: ${currentColor} - ${currentSize} beden - ${currentExtra} (Adet: ${qty})`;
+}
+
+function triggerOrder() {
+    let qty = document.getElementById("product-qty").value;
+    let singlePrice = basePrice + sizePrice + extraPrice;
+    let finalTotal = singlePrice * qty;
+    
+    alert(`PrestaShop Simülasyonu:\n\n${qty} Adet x ${currentColor} Tişört (${currentSize} Beden / ${currentExtra}) başarıyla sepete gönderildi.\nToplam Tutar: ${finalTotal.toFixed(2)} TL`);
 }
 </script>
 
